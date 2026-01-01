@@ -28,6 +28,10 @@ jobs:
       - name: Build React app
         run: npm run build
 
+      - name: Debug secrets
+        run: echo "${{ secrets.EC2_SSH_KEY }}" | head -n 3
+
+
       # 5️⃣ Start SSH agent and add private key
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
