@@ -1,28 +1,45 @@
-name: Deploy React FE to EC2
+name: Deploy React App to EC2
 
 on:
   push:
     branches:
-      - main
+      - main  # deploy when main branch is updated
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # 1️⃣ Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      # 2️⃣ Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      # 4️⃣ Build React app
+      - name: Build React app
         run: npm run build
 
-      - name: Deploy
-        uses: appleboy/scp-action@v0.1.7
+      # 5️⃣ Start SSH agent and add private key
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.1
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "dist/*"
-          target: "/var/www/react-app"
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      # 6️⃣ Copy build files to EC2
+      - name: Deploy to EC2
+        run: |
+          scp -r build/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/usr/share/nginx/html/
+
+      # 7️⃣ Optional: Reload Nginx
+      - name: Reload Nginx
+        run: |
+          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo systemctl reload nginx"
