@@ -10,49 +10,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout code
+      # 1️⃣ Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Set up Node.js
+      # 2️⃣ Install Node and dependencies
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Build React app
+      # 3️⃣ Build React app
       - name: Build React app
         run: npm run build
 
-      - name: Verify SSH key secret exists
-        run: |
-          if [ -z "${{ secrets.EC2_SSH_KEY }}" ]; then
-            echo "❌ EC2_SSH_KEY is empty"
-            exit 1
-          else
-            echo "✅ EC2_SSH_KEY is present"
-          fi
-
-      - name: Debug secrets
-        run: echo "${{ secrets.EC2_SSH_KEY }}" | head -n 3
-
-
-      # 5️⃣ Start SSH agent and add private key
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
+      # 4️⃣ Deploy to EC2 using appleboy/scp-action
+      - name: Copy build files to EC2
+        uses: appleboy/scp-action@v0.1.7
         with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: "build/*"   # adjust if React app is in a subfolder
+          target: "/usr/share/nginx/html/"
+          strip_components: 0
+          overwrite: true
+          rm: false
 
-      # 6️⃣ Copy build files to EC2
-      - name: Deploy to EC2
-        run: |
-          scp -o StrictHostKeyChecking=no -r build/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/usr/share/nginx/html/
-
-      # 7️⃣ Reload nginx
+      # 5️⃣ Reload Nginx
       - name: Reload Nginx
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo systemctl reload nginx"
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            sudo systemctl reload nginx
