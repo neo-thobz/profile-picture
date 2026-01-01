@@ -26,6 +26,11 @@ jobs:
       # 3️⃣ Build React app
       - name: Build React app
         run: npm run build
+
+      - name: Verify dist folder
+        run: |
+          ls -la profile-picture
+          ls -la profile-picture/dist
         
       # 4️⃣ Deploy to EC2 using appleboy/scp-action
       - name: Copy build files to EC2
