@@ -1,12 +1,12 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import HeroText from "../components/HeroText";
-import ParallaxBackground from "../components/ParallaxBackground";
-import { Astronaut } from "../components/Astronaut";
+import HeroText from "../components/HeroText.tsx";
+import ParallaxBackground from "../components/ParallaxBackground.tsx";
+import { Astronaut } from "../components/Astronaut.tsx";
 import { Float } from "@react-three/drei";
 import { useMediaQuery } from "react-responsive";
 import { easing } from "maath";
 import { Suspense } from "react";
-import Loader from "../components/Loader";
+import Loader from "../components/Loader.tsx";
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
