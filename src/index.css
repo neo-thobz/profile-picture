@@ -1,1 +1,54 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url('https://static.figma.com/font/Orbitron_wght__1') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url('https://static.figma.com/font/Inter_1') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 500;
+    font-display: swap;
+    src: url('https://static.figma.com/font/JetBrainsMono_wght__1') format('woff2');
+}
+
+@theme {
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-display: 'Orbitron', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --color-bg: #050d12;
+    --color-surface: #0a1820;
+    --color-surface-2: #0f2030;
+    --color-green: #00ff87;
+    --color-cyan: #00d4ff;
+    --color-amber: #ffb800;
+    --color-red: #ff3d57;
+    --color-border: rgba(0, 212, 255, 0.15);
+    --color-text: #c8dde8;
+    --color-muted: #4a6272;
+}
+
+* {
+    scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    background-color: #050d12;
+    color: #c8dde8;
+}
