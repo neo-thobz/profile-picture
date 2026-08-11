@@ -1,9 +1,7 @@
-import Hero from "./sections/Hero.tsx";
-
 function App() {
   return (
     <div className="container mx-auto max-w-7xl">
-      <Hero />
+      <text>Hello there internet!</text>
     </div>
   )
 }
