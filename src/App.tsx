@@ -147,7 +147,7 @@ export default function App() {
                 className="mb-10 text-base leading-relaxed"
                 style={{ color: "var(--color-text)", maxWidth: "42ch" }}
               >
-                Product engineer with 9+ years building resilient
+                Product engineer with 10+ years building resilient
                 software. Obsessed with automation,
                 IaC, and systems that scale without keeping you up at night.
               </p>
@@ -235,7 +235,7 @@ export default function App() {
                   text={
                     (
                       <span style={{ color: "var(--color-green)" }}>
-                        → Senior Product Engineer @ neoThobs Solutions
+                        → Neo Thobejane
                       </span>
                     )
                   }
@@ -257,12 +257,17 @@ export default function App() {
                   delay={1200}
                 />
                 <TerminalLine text="" delay={1400} />
-                <TerminalLine text="$ terraform --version" delay={1600} />
+                <TerminalLine text="$ terraform state list" delay={1600} />
                 <TerminalLine
                   text={
                     (
                       <span style={{ color: "var(--color-green)" }}>
-                        Terraform v1.9.4 · linux_amd64
+                        aws_s3_bucket.resume
+                        aws_cloudfront_distribution.resume
+                        aws_dynamodb_table.visitors
+                        aws_lambda_function.visitor_counter
+                        aws_iam_role.github_actions
+                        aws_route53_record.resume
                       </span>
                     )
                   }
@@ -270,13 +275,13 @@ export default function App() {
                 />
                 <TerminalLine text="" delay={2100} />
                 <TerminalLine
-                  text="$ kubectl get nodes --all-namespaces | wc -l"
+                  text="$ aws cloudfront get-distribution --id E123456789012 | jq -r '.Distribution.Status'"
                   delay={2300}
                 />
                 <TerminalLine
                   text={
                     (
-                      <span style={{ color: "var(--color-amber)" }}>47</span>
+                      <span style={{ color: "var(--color-amber)" }}>Deployed</span>
                     )
                   }
                   delay={2600}
