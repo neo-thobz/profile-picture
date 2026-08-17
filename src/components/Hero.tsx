@@ -1,4 +1,5 @@
-import {useState, useEffect, ReactNode} from "react";
+import { useState, useEffect, ReactNode } from "react";
+import Contact from "./Contact";
 
 function TerminalLine({ text, delay = 0 }: { text: ReactNode; delay?: number }) {
   const [visible, setVisible] = useState(false);
@@ -17,6 +18,8 @@ function TerminalLine({ text, delay = 0 }: { text: ReactNode; delay?: number }) 
 }
 
 export default function Hero() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <div
       style={{
@@ -153,8 +156,9 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <a
-                  href="#contact"
+                <button
+                  type="button"
+                  onClick={() => setIsContactOpen(true)}
                   className="px-5 py-2.5 rounded font-medium transition-all duration-200 text-sm hover:opacity-90"
                   style={{
                     background:
@@ -166,7 +170,7 @@ export default function Hero() {
                   }}
                 >
                   GET IN TOUCH
-                </a>
+                </button>
                 <a
                   href="https://github.com/neo-thobz"
                   target="_blank" rel="noopener noreferrer"
@@ -263,11 +267,11 @@ export default function Hero() {
                   text={
                     (
                       <span style={{ color: "var(--color-green)" }}>
-                        aws_s3_bucket.resume
-                        aws_cloudfront_distribution.resume
-                        aws_dynamodb_table.visitors
-                        aws_lambda_function.visitor_counter
-                        aws_iam_role.github_actions
+                        aws_s3_bucket.resume <br/>
+                        aws_cloudfront_distribution.resume <br/>
+                        aws_dynamodb_table.visitors <br/>
+                        aws_lambda_function.visitor_counter <br/>
+                        aws_iam_role.github_actions <br/>
                         aws_route53_record.resume
                       </span>
                     )
@@ -313,6 +317,11 @@ export default function Hero() {
           </div>
         </section>
       </main>
+
+      <Contact
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
     </div>
   );
 }
