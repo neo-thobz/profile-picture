@@ -168,7 +168,7 @@ export default function Hero() {
                   GET IN TOUCH
                 </a>
                 <a
-                  href="#projects"
+                  href="https://github.com/neo-thobz"
                   className="px-5 py-2.5 rounded border text-sm transition-all duration-200 hover:bg-opacity-10"
                   style={{
                     borderColor: "var(--color-border)",
