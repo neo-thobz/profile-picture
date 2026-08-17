@@ -169,6 +169,7 @@ export default function Hero() {
                 </a>
                 <a
                   href="https://github.com/neo-thobz"
+                  target="_blank" rel="noopener noreferrer"
                   className="px-5 py-2.5 rounded border text-sm transition-all duration-200 hover:bg-opacity-10"
                   style={{
                     borderColor: "var(--color-border)",
